@@ -1,0 +1,74 @@
+﻿@model Projekt.Models.Medarbejder
+
+@{
+    ViewBag.Title = "FindMedarbejder";
+}
+
+<h2>Godkend Medarbejder</h2>
+@using (Html.BeginForm("Godkend", "Godkendelse"))
+{
+
+    <fieldset>
+        <input type="text" value=@Model.id name="medarbejderId" id="medarbejderId">
+        <table>
+            <tr><td>1. Start dato: </td><td>@Model.start_dato</td></tr>
+            <tr>
+                <td>2. Afdelings navn:</td>
+                <td>@Model.afdelingsnavn</td>
+            </tr>
+            <tr><td>3. Afdelings nummer: </td><td>@Model.Afdeling.nummer</td></tr>
+            <tr><td>4. Medarbejderens navn: </td><td>@Model.navn</td></tr>
+            <tr><td>5. Initialer: </td><td>@Model.initialer</td></tr>
+            <tr><td>6. Stillingsbetegnelse: </td><td>@Model.stillingsbetegnelse</td></tr>
+            <tr><td>7. Telefon - lokal nr.: </td><td>@Model.telefon</td></tr>
+            <tr><td>8. Adgang til FIKS</td><td>@Model.Fiks.kode</td></tr>
+            <tr><td>9. Adgang til 360 </td></tr>
+            <tr><td>Adgangsgrupper</td>
+                <td>
+
+
+                    @foreach (var item in Model.Grupper)
+                    {
+
+                         @item.navn <br/>
+                    }
+
+                </td>
+            </tr>
+            <tr><td>10. Funktionspostkasse: </td> 
+            <tr>
+                <td></td><td>
+                @foreach (var item in Model.Medarbejder_funktionspostkasse)
+                { 
+                
+                    @item.funktionspostkasse <br/>
+                }
+
+                </td>
+            
+            
+            </tr>
+            <tr><td>12. Udstyr: </td></tr>
+            <tr>
+                <td></td>
+                <td>
+                    @foreach (var item in Model.Udstyr)
+                    {
+                        @item.navn<br />
+                    }
+                </td>
+            </tr>
+
+
+        </table>
+
+        <input type="submit" value="Godkend" name="godkend">
+        
+
+    </fieldset>
+
+
+}
+
+
+

@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "GodkendMedarbejder";
+}
+
+<h2>GodkendMedarbejder</h2>
+
+@using (Html.BeginForm("FindMedarbejder", "Godkendelse", FormMethod.Get))
+
+{
+    <fieldset>
+        <input type="text" name="medarbejderId" />
+        <input type="submit" value="OK" name="ok">
+
+    </fieldset>
+}

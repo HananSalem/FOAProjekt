@@ -1,0 +1,14 @@
+body {
+background-image:url('/Content/Images/background-pattern.png');
+margin:0px;
+width:100%;
+}
+
+.main {
+    margin-left:10%;
+    width:80%;
+    background-color:white;
+    padding:3em;
+    height:91vh;
+
+}

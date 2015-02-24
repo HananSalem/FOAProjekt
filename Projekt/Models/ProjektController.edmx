@@ -1,0 +1,814 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OprettelseDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Afdeling">
+          <Key>
+            <PropertyRef Name="navn" />
+          </Key>
+          <Property Name="navn" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nummer" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Blanket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="leder_id" Type="int" />
+          <Property Name="medarbejder_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fiks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="kode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="område_id" Type="int" Nullable="false" />
+          <Property Name="beskrivelse" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Grupper">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="navn" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="område_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Leder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="initialer" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="stilling" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medarbejder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="navn" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="initialer" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="stillingsbetegnelse" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="telefon" Type="int" Nullable="false" />
+          <Property Name="afdelingsnavn" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="område_id" Type="int" Nullable="false" />
+          <Property Name="cpr" Type="varchar" MaxLength="50" />
+          <Property Name="fiks_id" Type="int" Nullable="false" />
+          <Property Name="start_dato" Type="date" />
+          <Property Name="slut_dato" Type="date" />
+        </EntityType>
+        <EntityType Name="Medarbejder_funktionspostkasse">
+          <Key>
+            <PropertyRef Name="medarbejder_id" />
+            <PropertyRef Name="funktionspostkasse" />
+          </Key>
+          <Property Name="medarbejder_id" Type="int" Nullable="false" />
+          <Property Name="funktionspostkasse" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medarbejder_grupper">
+          <Key>
+            <PropertyRef Name="medarbejder_id" />
+            <PropertyRef Name="grupper_id" />
+          </Key>
+          <Property Name="medarbejder_id" Type="int" Nullable="false" />
+          <Property Name="grupper_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medarbejder_specialprogrammer">
+          <Key>
+            <PropertyRef Name="medarbejder_id" />
+            <PropertyRef Name="specialprogrammer_id" />
+          </Key>
+          <Property Name="medarbejder_id" Type="int" Nullable="false" />
+          <Property Name="specialprogrammer_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medarbejder_udstyr">
+          <Key>
+            <PropertyRef Name="medarbejder_id" />
+            <PropertyRef Name="udstyr_id" />
+          </Key>
+          <Property Name="medarbejder_id" Type="int" Nullable="false" />
+          <Property Name="udstyr_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Område">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="navn" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specialprogrammer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="navn" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Udstyr">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="navn" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Blanket_Leder">
+          <End Role="Leder" Type="Self.Leder" Multiplicity="0..1" />
+          <End Role="Blanket" Type="Self.Blanket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Blanket">
+              <PropertyRef Name="leder_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blanket_Medarbejder">
+          <End Role="Medarbejder" Type="Self.Medarbejder" Multiplicity="1" />
+          <End Role="Blanket" Type="Self.Blanket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medarbejder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Blanket">
+              <PropertyRef Name="medarbejder_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fiks_Område">
+          <End Role="Område" Type="Self.Område" Multiplicity="1" />
+          <End Role="Fiks" Type="Self.Fiks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Område">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Fiks">
+              <PropertyRef Name="område_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grupper_Område1">
+          <End Role="Område" Type="Self.Område" Multiplicity="0..1" />
+          <End Role="Grupper" Type="Self.Grupper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Område">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Grupper">
+              <PropertyRef Name="område_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_Afdeling">
+          <End Role="Afdeling" Type="Self.Afdeling" Multiplicity="1" />
+          <End Role="Medarbejder" Type="Self.Medarbejder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Afdeling">
+              <PropertyRef Name="navn" />
+            </Principal>
+            <Dependent Role="Medarbejder">
+              <PropertyRef Name="afdelingsnavn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_Fiks">
+          <End Role="Fiks" Type="Self.Fiks" Multiplicity="1" />
+          <End Role="Medarbejder" Type="Self.Medarbejder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fiks">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder">
+              <PropertyRef Name="fiks_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_funktionspostkasse_Medarbejder">
+          <End Role="Medarbejder" Type="Self.Medarbejder" Multiplicity="1" />
+          <End Role="Medarbejder_funktionspostkasse" Type="Self.Medarbejder_funktionspostkasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medarbejder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder_funktionspostkasse">
+              <PropertyRef Name="medarbejder_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_grupper_Grupper">
+          <End Role="Grupper" Type="Self.Grupper" Multiplicity="1" />
+          <End Role="Medarbejder_grupper" Type="Self.Medarbejder_grupper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupper">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder_grupper">
+              <PropertyRef Name="grupper_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_grupper_Medarbejder">
+          <End Role="Medarbejder" Type="Self.Medarbejder" Multiplicity="1" />
+          <End Role="Medarbejder_grupper" Type="Self.Medarbejder_grupper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medarbejder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder_grupper">
+              <PropertyRef Name="medarbejder_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_Område">
+          <End Role="Område" Type="Self.Område" Multiplicity="1" />
+          <End Role="Medarbejder" Type="Self.Medarbejder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Område">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder">
+              <PropertyRef Name="område_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_specialprogrammer_Medarbejder">
+          <End Role="Medarbejder" Type="Self.Medarbejder" Multiplicity="1" />
+          <End Role="Medarbejder_specialprogrammer" Type="Self.Medarbejder_specialprogrammer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medarbejder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder_specialprogrammer">
+              <PropertyRef Name="medarbejder_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_specialprogrammer_Specialprogrammer">
+          <End Role="Specialprogrammer" Type="Self.Specialprogrammer" Multiplicity="1" />
+          <End Role="Medarbejder_specialprogrammer" Type="Self.Medarbejder_specialprogrammer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialprogrammer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder_specialprogrammer">
+              <PropertyRef Name="specialprogrammer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_udstyr_Medarbejder">
+          <End Role="Medarbejder" Type="Self.Medarbejder" Multiplicity="1" />
+          <End Role="Medarbejder_udstyr" Type="Self.Medarbejder_udstyr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medarbejder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder_udstyr">
+              <PropertyRef Name="medarbejder_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_udstyr_Udstyr">
+          <End Role="Udstyr" Type="Self.Udstyr" Multiplicity="1" />
+          <End Role="Medarbejder_udstyr" Type="Self.Medarbejder_udstyr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Udstyr">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder_udstyr">
+              <PropertyRef Name="udstyr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OprettelseDBModelStoreContainer">
+          <EntitySet Name="Afdeling" EntityType="Self.Afdeling" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blanket" EntityType="Self.Blanket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fiks" EntityType="Self.Fiks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grupper" EntityType="Self.Grupper" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Leder" EntityType="Self.Leder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medarbejder" EntityType="Self.Medarbejder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medarbejder_funktionspostkasse" EntityType="Self.Medarbejder_funktionspostkasse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medarbejder_grupper" EntityType="Self.Medarbejder_grupper" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medarbejder_specialprogrammer" EntityType="Self.Medarbejder_specialprogrammer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medarbejder_udstyr" EntityType="Self.Medarbejder_udstyr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Område" EntityType="Self.Område" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specialprogrammer" EntityType="Self.Specialprogrammer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Udstyr" EntityType="Self.Udstyr" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Blanket_Leder" Association="Self.FK_Blanket_Leder">
+            <End Role="Leder" EntitySet="Leder" />
+            <End Role="Blanket" EntitySet="Blanket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blanket_Medarbejder" Association="Self.FK_Blanket_Medarbejder">
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+            <End Role="Blanket" EntitySet="Blanket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fiks_Område" Association="Self.FK_Fiks_Område">
+            <End Role="Område" EntitySet="Område" />
+            <End Role="Fiks" EntitySet="Fiks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grupper_Område1" Association="Self.FK_Grupper_Område1">
+            <End Role="Område" EntitySet="Område" />
+            <End Role="Grupper" EntitySet="Grupper" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_Afdeling" Association="Self.FK_Medarbejder_Afdeling">
+            <End Role="Afdeling" EntitySet="Afdeling" />
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_Fiks" Association="Self.FK_Medarbejder_Fiks">
+            <End Role="Fiks" EntitySet="Fiks" />
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_funktionspostkasse_Medarbejder" Association="Self.FK_Medarbejder_funktionspostkasse_Medarbejder">
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+            <End Role="Medarbejder_funktionspostkasse" EntitySet="Medarbejder_funktionspostkasse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_grupper_Grupper" Association="Self.FK_Medarbejder_grupper_Grupper">
+            <End Role="Grupper" EntitySet="Grupper" />
+            <End Role="Medarbejder_grupper" EntitySet="Medarbejder_grupper" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_grupper_Medarbejder" Association="Self.FK_Medarbejder_grupper_Medarbejder">
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+            <End Role="Medarbejder_grupper" EntitySet="Medarbejder_grupper" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_Område" Association="Self.FK_Medarbejder_Område">
+            <End Role="Område" EntitySet="Område" />
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_specialprogrammer_Medarbejder" Association="Self.FK_Medarbejder_specialprogrammer_Medarbejder">
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+            <End Role="Medarbejder_specialprogrammer" EntitySet="Medarbejder_specialprogrammer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_specialprogrammer_Specialprogrammer" Association="Self.FK_Medarbejder_specialprogrammer_Specialprogrammer">
+            <End Role="Specialprogrammer" EntitySet="Specialprogrammer" />
+            <End Role="Medarbejder_specialprogrammer" EntitySet="Medarbejder_specialprogrammer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_udstyr_Medarbejder" Association="Self.FK_Medarbejder_udstyr_Medarbejder">
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+            <End Role="Medarbejder_udstyr" EntitySet="Medarbejder_udstyr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_udstyr_Udstyr" Association="Self.FK_Medarbejder_udstyr_Udstyr">
+            <End Role="Udstyr" EntitySet="Udstyr" />
+            <End Role="Medarbejder_udstyr" EntitySet="Medarbejder_udstyr" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OprettelseDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Afdeling">
+          <Key>
+            <PropertyRef Name="navn" />
+          </Key>
+          <Property Name="navn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nummer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Medarbejder" Relationship="Self.FK_Medarbejder_Afdeling" FromRole="Afdeling" ToRole="Medarbejder" />
+        </EntityType>
+        <EntityType Name="Fiks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="kode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="område_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Område" Relationship="OprettelseDBModel.FK_Fiks_Område" FromRole="Fiks" ToRole="Område" />
+          <Property Name="beskrivelse" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Medarbejder" Relationship="OprettelseDBModel.FK_Medarbejder_Fiks" FromRole="Fiks" ToRole="Medarbejder" />
+        </EntityType>
+        <EntityType Name="Grupper">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="navn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="område_id" Type="Int32" />
+          <NavigationProperty Name="Område" Relationship="OprettelseDBModel.FK_Grupper_Område1" FromRole="Grupper" ToRole="Område" />
+          <NavigationProperty Name="Medarbejder" Relationship="OprettelseDBModel.Medarbejder_grupper" FromRole="Grupper" ToRole="Medarbejder" />
+        </EntityType>
+        <EntityType Name="Leder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="initialer" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stilling" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Blanket" Relationship="OprettelseDBModel.FK_Blanket_Leder" FromRole="Leder" ToRole="Blanket" />
+        </EntityType>
+        <EntityType Name="Medarbejder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="navn" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="initialer" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stillingsbetegnelse" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefon" Type="Int32" Nullable="false" />
+          <Property Name="afdelingsnavn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Afdeling" Relationship="Self.FK_Medarbejder_Afdeling" FromRole="Medarbejder" ToRole="Afdeling" />
+          <NavigationProperty Name="Udstyr" Relationship="Self.Medarbejder_udstyr" FromRole="Medarbejder" ToRole="Udstyr" />
+          <Property Name="område_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Område" Relationship="OprettelseDBModel.FK_Medarbejder_Område" FromRole="Medarbejder" ToRole="Område" />
+          <Property Name="cpr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fiks_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fiks" Relationship="OprettelseDBModel.FK_Medarbejder_Fiks" FromRole="Medarbejder" ToRole="Fiks" />
+          <NavigationProperty Name="Blanket" Relationship="OprettelseDBModel.FK_Blanket_Medarbejder" FromRole="Medarbejder" ToRole="Blanket" />
+          <NavigationProperty Name="Grupper" Relationship="OprettelseDBModel.Medarbejder_grupper" FromRole="Medarbejder" ToRole="Grupper" />
+          <NavigationProperty Name="Specialprogrammer" Relationship="OprettelseDBModel.Medarbejder_specialprogrammer" FromRole="Medarbejder" ToRole="Specialprogrammer" />
+          <Property Name="start_dato" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Medarbejder_funktionspostkasse" Relationship="OprettelseDBModel.FK_Medarbejder_funktionspostkasse_Medarbejder" FromRole="Medarbejder" ToRole="Medarbejder_funktionspostkasse" />
+          <Property Name="slut_dato" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Specialprogrammer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="navn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Medarbejder" Relationship="OprettelseDBModel.Medarbejder_specialprogrammer" FromRole="Specialprogrammer" ToRole="Medarbejder" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Udstyr">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Medarbejder" Relationship="Self.Medarbejder_udstyr" FromRole="Udstyr" ToRole="Medarbejder" />
+          <Property Name="navn" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Medarbejder_Afdeling">
+          <End Role="Afdeling" Type="Self.Afdeling" Multiplicity="1" />
+          <End Role="Medarbejder" Type="Self.Medarbejder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Afdeling">
+              <PropertyRef Name="navn" />
+            </Principal>
+            <Dependent Role="Medarbejder">
+              <PropertyRef Name="afdelingsnavn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Medarbejder_udstyr">
+          <End Role="Medarbejder" Type="Self.Medarbejder" Multiplicity="*" />
+          <End Role="Udstyr" Type="Self.Udstyr" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="OprettelseDBEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Afdeling" EntityType="Self.Afdeling" />
+          <EntitySet Name="Fiks" EntityType="Self.Fiks" />
+          <EntitySet Name="Grupper" EntityType="Self.Grupper" />
+          <EntitySet Name="Leder" EntityType="Self.Leder" />
+          <EntitySet Name="Medarbejder" EntityType="Self.Medarbejder" />
+          <EntitySet Name="Specialprogrammer" EntityType="Self.Specialprogrammer" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Udstyr" EntityType="Self.Udstyr" />
+          <AssociationSet Name="FK_Medarbejder_Afdeling" Association="Self.FK_Medarbejder_Afdeling">
+            <End Role="Afdeling" EntitySet="Afdeling" />
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+          </AssociationSet>
+          <AssociationSet Name="Medarbejder_udstyr" Association="Self.Medarbejder_udstyr">
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+            <End Role="Udstyr" EntitySet="Udstyr" />
+          </AssociationSet>
+          <EntitySet Name="Område" EntityType="OprettelseDBModel.Område" />
+          <AssociationSet Name="FK_Medarbejder_Område" Association="OprettelseDBModel.FK_Medarbejder_Område">
+            <End Role="Område" EntitySet="Område" />
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fiks_Område" Association="OprettelseDBModel.FK_Fiks_Område">
+            <End Role="Område" EntitySet="Område" />
+            <End Role="Fiks" EntitySet="Fiks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medarbejder_Fiks" Association="OprettelseDBModel.FK_Medarbejder_Fiks">
+            <End Role="Fiks" EntitySet="Fiks" />
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grupper_Område1" Association="OprettelseDBModel.FK_Grupper_Område1">
+            <End Role="Område" EntitySet="Område" />
+            <End Role="Grupper" EntitySet="Grupper" />
+          </AssociationSet>
+          <EntitySet Name="Blanket" EntityType="OprettelseDBModel.Blanket" />
+          <AssociationSet Name="FK_Blanket_Leder" Association="OprettelseDBModel.FK_Blanket_Leder">
+            <End Role="Leder" EntitySet="Leder" />
+            <End Role="Blanket" EntitySet="Blanket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blanket_Medarbejder" Association="OprettelseDBModel.FK_Blanket_Medarbejder">
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+            <End Role="Blanket" EntitySet="Blanket" />
+          </AssociationSet>
+          <AssociationSet Name="Medarbejder_grupper" Association="OprettelseDBModel.Medarbejder_grupper">
+            <End Role="Grupper" EntitySet="Grupper" />
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+          </AssociationSet>
+          <AssociationSet Name="Medarbejder_specialprogrammer" Association="OprettelseDBModel.Medarbejder_specialprogrammer">
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+            <End Role="Specialprogrammer" EntitySet="Specialprogrammer" />
+          </AssociationSet>
+          <EntitySet Name="Medarbejder_funktionspostkasse" EntityType="OprettelseDBModel.Medarbejder_funktionspostkasse" />
+          <AssociationSet Name="FK_Medarbejder_funktionspostkasse_Medarbejder" Association="OprettelseDBModel.FK_Medarbejder_funktionspostkasse_Medarbejder">
+            <End Role="Medarbejder" EntitySet="Medarbejder" />
+            <End Role="Medarbejder_funktionspostkasse" EntitySet="Medarbejder_funktionspostkasse" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Område">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="navn" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Medarbejder" Relationship="OprettelseDBModel.FK_Medarbejder_Område" FromRole="Område" ToRole="Medarbejder" />
+          <NavigationProperty Name="Fiks" Relationship="OprettelseDBModel.FK_Fiks_Område" FromRole="Område" ToRole="Fiks" />
+          <NavigationProperty Name="Grupper" Relationship="OprettelseDBModel.FK_Grupper_Område1" FromRole="Område" ToRole="Grupper" />
+        </EntityType>
+        <Association Name="FK_Medarbejder_Område">
+          <End Type="OprettelseDBModel.Område" Role="Område" Multiplicity="1" />
+          <End Type="OprettelseDBModel.Medarbejder" Role="Medarbejder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Område">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder">
+              <PropertyRef Name="område_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fiks_Område">
+          <End Type="OprettelseDBModel.Område" Role="Område" Multiplicity="1" />
+          <End Type="OprettelseDBModel.Fiks" Role="Fiks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Område">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Fiks">
+              <PropertyRef Name="område_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medarbejder_Fiks">
+          <End Type="OprettelseDBModel.Fiks" Role="Fiks" Multiplicity="1" />
+          <End Type="OprettelseDBModel.Medarbejder" Role="Medarbejder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fiks">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder">
+              <PropertyRef Name="fiks_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grupper_Område1">
+          <End Type="OprettelseDBModel.Område" Role="Område" Multiplicity="0..1" />
+          <End Type="OprettelseDBModel.Grupper" Role="Grupper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Område">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Grupper">
+              <PropertyRef Name="område_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Blanket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="leder_id" Type="Int32" />
+          <Property Name="medarbejder_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Leder" Relationship="OprettelseDBModel.FK_Blanket_Leder" FromRole="Blanket" ToRole="Leder" />
+          <NavigationProperty Name="Medarbejder" Relationship="OprettelseDBModel.FK_Blanket_Medarbejder" FromRole="Blanket" ToRole="Medarbejder" />
+        </EntityType>
+        <Association Name="FK_Blanket_Leder">
+          <End Type="OprettelseDBModel.Leder" Role="Leder" Multiplicity="0..1" />
+          <End Type="OprettelseDBModel.Blanket" Role="Blanket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Blanket">
+              <PropertyRef Name="leder_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blanket_Medarbejder">
+          <End Type="OprettelseDBModel.Medarbejder" Role="Medarbejder" Multiplicity="1" />
+          <End Type="OprettelseDBModel.Blanket" Role="Blanket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medarbejder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Blanket">
+              <PropertyRef Name="medarbejder_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Medarbejder_grupper">
+          <End Type="OprettelseDBModel.Grupper" Role="Grupper" Multiplicity="*" />
+          <End Type="OprettelseDBModel.Medarbejder" Role="Medarbejder" Multiplicity="*" />
+        </Association>
+        <Association Name="Medarbejder_specialprogrammer">
+          <End Type="OprettelseDBModel.Medarbejder" Role="Medarbejder" Multiplicity="*" />
+          <End Type="OprettelseDBModel.Specialprogrammer" Role="Specialprogrammer" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Medarbejder_funktionspostkasse">
+          <Key>
+            <PropertyRef Name="medarbejder_id" />
+            <PropertyRef Name="funktionspostkasse" />
+          </Key>
+          <Property Name="medarbejder_id" Type="Int32" Nullable="false" />
+          <Property Name="funktionspostkasse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Medarbejder" Relationship="OprettelseDBModel.FK_Medarbejder_funktionspostkasse_Medarbejder" FromRole="Medarbejder_funktionspostkasse" ToRole="Medarbejder" />
+        </EntityType>
+        <Association Name="FK_Medarbejder_funktionspostkasse_Medarbejder">
+          <End Type="OprettelseDBModel.Medarbejder" Role="Medarbejder" Multiplicity="1" />
+          <End Type="OprettelseDBModel.Medarbejder_funktionspostkasse" Role="Medarbejder_funktionspostkasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medarbejder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Medarbejder_funktionspostkasse">
+              <PropertyRef Name="medarbejder_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OprettelseDBModelStoreContainer" CdmEntityContainer="OprettelseDBEntities2">
+          <EntitySetMapping Name="Afdeling">
+            <EntityTypeMapping TypeName="OprettelseDBModel.Afdeling">
+              <MappingFragment StoreEntitySet="Afdeling">
+                <ScalarProperty Name="navn" ColumnName="navn" />
+                <ScalarProperty Name="nummer" ColumnName="nummer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fiks">
+            <EntityTypeMapping TypeName="OprettelseDBModel.Fiks">
+              <MappingFragment StoreEntitySet="Fiks">
+                <ScalarProperty Name="beskrivelse" ColumnName="beskrivelse" />
+                <ScalarProperty Name="område_id" ColumnName="område_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="kode" ColumnName="kode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grupper">
+            <EntityTypeMapping TypeName="OprettelseDBModel.Grupper">
+              <MappingFragment StoreEntitySet="Grupper">
+                <ScalarProperty Name="område_id" ColumnName="område_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="navn" ColumnName="navn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leder">
+            <EntityTypeMapping TypeName="OprettelseDBModel.Leder">
+              <MappingFragment StoreEntitySet="Leder">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="initialer" ColumnName="initialer" />
+                <ScalarProperty Name="stilling" ColumnName="stilling" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medarbejder">
+            <EntityTypeMapping TypeName="OprettelseDBModel.Medarbejder">
+              <MappingFragment StoreEntitySet="Medarbejder">
+                <ScalarProperty Name="slut_dato" ColumnName="slut_dato" />
+                <ScalarProperty Name="start_dato" ColumnName="start_dato" />
+                <ScalarProperty Name="fiks_id" ColumnName="fiks_id" />
+                <ScalarProperty Name="cpr" ColumnName="cpr" />
+                <ScalarProperty Name="område_id" ColumnName="område_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="navn" ColumnName="navn" />
+                <ScalarProperty Name="initialer" ColumnName="initialer" />
+                <ScalarProperty Name="stillingsbetegnelse" ColumnName="stillingsbetegnelse" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="afdelingsnavn" ColumnName="afdelingsnavn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specialprogrammer">
+            <EntityTypeMapping TypeName="OprettelseDBModel.Specialprogrammer">
+              <MappingFragment StoreEntitySet="Specialprogrammer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="navn" ColumnName="navn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OprettelseDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Udstyr">
+            <EntityTypeMapping TypeName="OprettelseDBModel.Udstyr">
+              <MappingFragment StoreEntitySet="Udstyr">
+                <ScalarProperty Name="navn" ColumnName="navn" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Medarbejder_udstyr" TypeName="OprettelseDBModel.Medarbejder_udstyr" StoreEntitySet="Medarbejder_udstyr">
+            <EndProperty Name="Medarbejder">
+              <ScalarProperty Name="id" ColumnName="medarbejder_id" />
+            </EndProperty>
+            <EndProperty Name="Udstyr">
+              <ScalarProperty Name="id" ColumnName="udstyr_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Område">
+            <EntityTypeMapping TypeName="OprettelseDBModel.Område">
+              <MappingFragment StoreEntitySet="Område">
+                <ScalarProperty Name="navn" ColumnName="navn" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blanket">
+            <EntityTypeMapping TypeName="OprettelseDBModel.Blanket">
+              <MappingFragment StoreEntitySet="Blanket">
+                <ScalarProperty Name="medarbejder_id" ColumnName="medarbejder_id" />
+                <ScalarProperty Name="leder_id" ColumnName="leder_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Medarbejder_grupper" TypeName="OprettelseDBModel.Medarbejder_grupper" StoreEntitySet="Medarbejder_grupper">
+            <EndProperty Name="Medarbejder">
+              <ScalarProperty Name="id" ColumnName="medarbejder_id" />
+            </EndProperty>
+            <EndProperty Name="Grupper">
+              <ScalarProperty Name="id" ColumnName="grupper_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Medarbejder_specialprogrammer" TypeName="OprettelseDBModel.Medarbejder_specialprogrammer" StoreEntitySet="Medarbejder_specialprogrammer">
+            <EndProperty Name="Specialprogrammer">
+              <ScalarProperty Name="id" ColumnName="specialprogrammer_id" />
+            </EndProperty>
+            <EndProperty Name="Medarbejder">
+              <ScalarProperty Name="id" ColumnName="medarbejder_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Medarbejder_funktionspostkasse">
+            <EntityTypeMapping TypeName="OprettelseDBModel.Medarbejder_funktionspostkasse">
+              <MappingFragment StoreEntitySet="Medarbejder_funktionspostkasse">
+                <ScalarProperty Name="funktionspostkasse" ColumnName="funktionspostkasse" />
+                <ScalarProperty Name="medarbejder_id" ColumnName="medarbejder_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

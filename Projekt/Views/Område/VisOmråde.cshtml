@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Projekt.Models.Område>
+
+
+    @{
+    ViewBag.Title = "VælgOmråde";
+    }
+
+    <h2>Vælg Område</h2>
+
+    @using (Html.BeginForm("Index", "Oprettelse"))
+{
+    <fieldset>
+        
+
+        <input type="radio" name="handling" value="oprettelse" checked="checked" /> Oprettelse <br />
+        <input type="radio" name="handling" value="sletning" /> Sletning <br />
+        <input type="radio" name="handling" value="ændring" /> Ændring<br />
+        <br /><br />
+
+
+        Område: 
+        <select name="område" id="område">
+            @foreach (var item in Model)
+            {
+                <option value=@item.id>@item.navn</option>
+            }
+
+        </select>
+
+
+        
+
+        <br />
+        <input type="submit" value="Opret medarbejder" name="opret">
+    </fieldset>
+
+        
+        <br/>
+           @Html.ActionLink("Vis status på blanketter", "GetStatus", "Status")
+        
+}
+
+
+
+
+    
+
+
+
+
