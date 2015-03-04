@@ -14,12 +14,18 @@ namespace Projekt.Models
     
     public partial class Blanket
     {
+        public Blanket()
+        {
+            this.Log = new HashSet<Log>();
+        }
+    
         public int id { get; set; }
-        public string status { get; set; }
         public Nullable<int> leder_id { get; set; }
         public int medarbejder_id { get; set; }
+        public string type { get; set; }
     
         public virtual Leder Leder { get; set; }
         public virtual Medarbejder Medarbejder { get; set; }
+        public virtual ICollection<Log> Log { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Projekt.Models;
+﻿using Projekt.DomainModels;
+using Projekt.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,8 @@ namespace Projekt.Controllers
 
         [HttpGet]
         public ActionResult FindMedarbejder()
-        {
-
-            string id = this.Request.QueryString["medarbejderId"];
-            Medarbejder medarbejder =  db.Medarbejder.Find(Convert.ToInt32(id));
-
+        {       
+          Medarbejder medarbejder = db.Medarbejder.Find(Convert.ToInt32(this.Request.QueryString["medarbejderId"]));
             return View(medarbejder);
         }
 
@@ -27,17 +25,13 @@ namespace Projekt.Controllers
 
         public ActionResult GodkendMedarbejder()
         {
-            return View();
-
-          
+            return View();       
         }
 
         public ActionResult Godkend(FormCollection collection)
         {
-            int id = Convert.ToInt32(collection.Get("medarbejderId"));
-            Blanket blanket = db.Blanket.Where(b => b.medarbejder_id == id).ToArray()[0];
-            blanket.status = "Godkendt af leder";
-            db.SaveChanges();
+            Godkendelse godkendelse = new Godkendelse();
+            godkendelse.GodkendMedarbejder(collection);
             return View();
         }
 

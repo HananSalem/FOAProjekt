@@ -14,7 +14,7 @@ namespace Projekt.Controllers
         // GET: /Status/
         public ActionResult GetStatus()
         {
-            return View(db.Blanket.ToList());
+            return View(db.Log.ToList());
         }
 	}
 }

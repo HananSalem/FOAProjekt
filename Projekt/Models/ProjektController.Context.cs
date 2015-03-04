@@ -31,10 +31,10 @@ namespace Projekt.Models
         public DbSet<Leder> Leder { get; set; }
         public DbSet<Medarbejder> Medarbejder { get; set; }
         public DbSet<Specialprogrammer> Specialprogrammer { get; set; }
-        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Udstyr> Udstyr { get; set; }
         public DbSet<Område> Område { get; set; }
         public DbSet<Blanket> Blanket { get; set; }
         public DbSet<Medarbejder_funktionspostkasse> Medarbejder_funktionspostkasse { get; set; }
+        public DbSet<Log> Log { get; set; }
     }
 }

@@ -4,34 +4,23 @@
     ViewBag.Title = "Oprettelsesblanket";
 }
 
-@section JavaScript
-{
-    <script type="text/javascript" src="@Url.Content("/Scripts/myScript.js")"></script>
 
-}
+
+<script type="text/javascript" src="@Url.Content("/Scripts/myScript.js")"></script>
+
+
 @section Style {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
     <link href="@Url.Content("~/Content/myStyleSheet.css")" rel="stylesheet" type="text/css" />
 
 }
-
-
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
-<script>
-    $(function () {
-        $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy'});
-    });
-</script>
-
-
 
 
 <h2>Oprettelsesblanket</h2>
 
 
 
-@using (Html.BeginForm("SendMail", "Oprettelse"))
+@using (Html.BeginForm("SendMail", "Oprettelse", FormMethod.Post, new { id = "oprettelsesform" }))
 {
 
     <fieldset>
@@ -51,7 +40,7 @@
                 </td>
             </tr>
             <tr><td>3. Afdelings nummer: </td><td><input type="text" id="afdelingsnummer" name="afdelingsnummer" /></td></tr>
-            <tr><td>4. Medarbejderens navn: </td><td><input type="text" name="medarbejderNavn" /></td></tr>
+            <tr><td>4. Medarbejderens navn: </td><td><input type="text" name="medarbejderNavn" id="medarbejderNavn" /></td></tr>
             <tr><td>5. Initialer: </td><td><input type="text" name="initialer" /></td></tr>
             <tr><td>6. Stillingsbetegnelse: </td><td><input type="text" name="stillingsbetegnelse" /></td></tr>
             <tr><td>7. Telefon - lokal nr.: </td><td><input type="text" name="telefon" /></td></tr>
@@ -104,12 +93,10 @@
                 </td>
             </tr>
             <tr><td>14. Sektionsleders navn/initialer: </td><td><input type="text" name="sektionsleder" /></td></tr>
-            <tr><td>15. Dato: </td><td><input type="date" name="underskriftdato" /></td></tr>
-
 
         </table>
 
-        <input type="submit" value="Send til godkendelse" name="send">
+        <input type="submit" id="submit" value="Send til godkendelse" name="send">
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
         @Html.ActionLink("Tilbage", "VisOmråde", "Område")
@@ -119,8 +106,4 @@
 
 
 }
-
-
-
-
 
