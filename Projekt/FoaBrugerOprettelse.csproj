@@ -193,9 +193,6 @@
     <Compile Include="Models\Specialprogrammer.cs">
       <DependentUpon>ProjektController.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>ProjektController.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\tbl_360Groups.cs">
       <DependentUpon>InitialerModel.tt</DependentUpon>
     </Compile>

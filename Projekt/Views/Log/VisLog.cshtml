@@ -1,0 +1,60 @@
+﻿@model FoaBrugerOprettelse.Models.LogData
+
+@{
+    ViewBag.Title = "Log";
+}
+
+
+
+<script type="text/javascript" src="@Url.Content("/Scripts/logScript.js")"></script>
+
+<style>
+    #log {
+    
+        margin-top:2em;
+        
+    }
+    td,th {
+        padding: 5px;
+        padding-left:3em;
+    }
+
+</style>   
+
+
+<h2>Log</h2>
+
+
+
+
+
+<select name="område" id="område">
+    @foreach (var item in Model.Område)
+    {
+        <option value=@item.id>@item.navn</option>
+
+
+    }
+
+</select>
+
+<button id="søg" value="Søg" name="søg">Søg</button>
+
+
+<br />
+
+<table id="log">
+    <thead>
+
+    </thead>
+
+    <tbody></tbody>
+</table>
+
+
+
+
+
+
+
+
