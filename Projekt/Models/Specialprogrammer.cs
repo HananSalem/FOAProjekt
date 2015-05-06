@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Projekt.Models
+namespace FoaBrugerOprettelse.Models
 {
     using System;
     using System.Collections.Generic;

@@ -1,5 +1,5 @@
-﻿using Projekt.DomainModels;
-using Projekt.Models;
+﻿using FoaBrugerOprettelse.DomainModels;
+using FoaBrugerOprettelse.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,74 +12,174 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Projekt.Controllers
+namespace FoaBrugerOprettelse.Controllers
 {
     public class OprettelseController : Controller
     {
         private OprettelseDBEntities2 db = new OprettelseDBEntities2();
+        private BrugdataEntities brugdataDB = new BrugdataEntities();
+        ADPerson ad = new ADPerson();
 
-        int områdeId;
+
 
         // GET: /Afdeling/
         public ActionResult Index(FormCollection collection)
         {
 
-        //    if (collection.Get("handling") == "oprettelse")
-        //    {
-        //        return RedirectToAction("OpretMedarbejder", new { område = collection.Get("område") });
-        //    }
-
-        //    else
-        //    {
-        // return RedirectToAction("SletMedarbejder");
-        //}
-        //}
-
-        //public ActionResult SletMedarbejder()
-        //{
-        //    return View("SletMedarbejder");
-
-
-            return RedirectToAction("OpretMedarbejder", new { område = collection.Get("område") });
-            
+            return RedirectToAction("VisOprettelsesBlanket", new { område = collection.Get("område") });
         }
 
 
-
-        //Vis Opret Blanket
-        public ActionResult OpretMedarbejder(String område)
+        public ActionResult VisOprettelsesBlanket()
         {
+            int områdeId = Convert.ToInt32(this.Request.QueryString["område"]);
 
-            områdeId = Convert.ToInt32(område);
+            // henter afdelinger fra brugdata
+            Afdelinger afd = new Afdelinger();
+            List<string> afdelinger = afd.hentAfdelinger(områdeId);
+    
+            Område o = db.Område.Find(områdeId);
 
-            List<Afdeling> afdelinger = db.Afdeling.ToList();
             List<Fiks> fiks = db.Fiks.Where(f => f.område_id == områdeId).ToList();
-            List<Grupper> adgangsgrupper = db.Grupper.Where(g => g.område_id == områdeId || g.område_id == null).ToList();
+            // List<Grupper> adgangsgrupper = db.Grupper.Where(g => g.område_id == områdeId || g.område_id == null).ToList();
             List<Udstyr> udstyr = db.Udstyr.ToList();
 
-            Data data = new Data(afdelinger, fiks, adgangsgrupper, udstyr, områdeId);
+            BlanketViewModel blanketViewModel = new BlanketViewModel(afdelinger, fiks, udstyr, o);
 
 
-            return View(data);
+
+            return View("Blanket", blanketViewModel);
         }
 
 
-        public string SendMail(FormCollection collection)
+
+        public ActionResult VisOprettelsesBlanketPersonale()
         {
+            int områdeId = Convert.ToInt32(this.Request.QueryString["område"]);
 
-         int id = OpretBlanketIDB(collection);
+            // henter afdelinger fra brugdata
+            Afdelinger afd = new Afdelinger();
+            List<string> afdelinger = afd.hentAfdelinger(områdeId);
 
-         Mail mail = new Mail();
-         return mail.SendMail(id);
+            Område o = db.Område.Find(områdeId);
+
+            BlanketViewModel blanketViewModel = new BlanketViewModel(afdelinger, o);
+            return View("OprettelsePersonale", blanketViewModel);
 
         }
 
-        public int OpretBlanketIDB(FormCollection collection)
+
+        public ActionResult SendGodkendelsesMailTilAkasseLeder()
         {
+            FormCollection collection = (FormCollection)TempData["collection"];
+
+            int id = OpretBlanketIDB(collection);
+
+            Mail mail = new Mail();
+            mail.modtager = "irar@foa.dk";
+            mail.body = mail.FindAkasseLederEmail(collection.Get("afdelinger")) + " - Tryk venligst på nedenstående link, for at godkende den nye medarbejder\n" + "http://localhost:59312/Home/Index?medarbejderId=" + id;
+            mail.emne = "Godkend ny medarbejder";
+            ViewBag.Besked = mail.SendMail();
+            return View("VisBesked");
+
+        }
+
+        public ActionResult SendGodkendelsesMailTilLeder()
+        {
+            FormCollection collection = (FormCollection)TempData["collection"];
+
+            int id = OpretBlanketIDB(collection);
+
+            Mail mail = new Mail();
+            //mail.modtager = collection.Get("leder");
+            mail.modtager = "irar@foa.dk";
+            mail.body = mail.FindLederEmail(collection.Get("afdelinger")) + " - Tryk venligst på nedenstående link, for at godkende den nye medarbejder\n" + "http://localhost:59312/Home/Index?medarbejderId=" + id;
+            mail.emne = "Godkend ny medarbejder";
+            ViewBag.Besked = mail.SendMail();
+            return View("VisBesked");
+        }
+
+        private int OpretBlanketIDB(FormCollection collection)
+        {
+            
             BlanketOprettelse blanket = new BlanketOprettelse(collection);
             int medarbejderId = blanket.Opret();
-            return medarbejderId;    
+
+            return medarbejderId;
+        
         }
+
+        public ActionResult OpretBlanket()
+        {
+            FormCollection collection = (FormCollection)TempData["collection"];
+            OpretBlanketIDB(collection);
+            ViewBag.Besked = "Medarbejderen er oprettet i databasen";
+            return View("VisBesked");
+
+        }
+
+        public ActionResult OpretPersonoplysninger(FormCollection collection)
+        {
+
+            BlanketOprettelse blanket = new BlanketOprettelse(collection);
+            int medarbejderId = blanket.OpretPersonoplysninger();
+            Mail mail = new Mail();
+            mail.modtager = "irar@foa.dk";
+            mail.body = mail.FindLederEmail(collection.Get("afdelinger")) + "Tryk venligst på nedenstående link, for at oprette den nye medarbejder \n" + "http://localhost:59312/Oprettelse/VisPersonoplysninger?medarbejderId=" + medarbejderId;
+            mail.emne = "Ny medarbejder";
+
+            ViewBag.Besked = mail.SendMail(); 
+            return View("VisBesked");
+        }
+
+
+        // Viser oprettelsesblanket med personligoplysininger fra personale.
+        public ActionResult VisPersonoplysninger()
+        {
+
+            string id = this.Request.QueryString["medarbejderId"];
+            Medarbejder medarbejder = db.Medarbejder.Find(Convert.ToInt32(id));
+
+            int områdeId = (int)medarbejder.område_id;
+
+            Afdelinger afd = new Afdelinger();
+            List<string> afdelinger = afd.hentStauning();
+
+            List<Fiks> fiks = db.Fiks.Where(f => f.område_id == områdeId).ToList();
+         List<string> adgangsgrupper = ad.Hent360Adgangsgrupper();
+            Adgangsgrupper ag = new Adgangsgrupper();
+          //List<string> adgangsgrupper = ag.Hent360Adgangsgrupper(områdeId, medarbejder.afdelingsnavn);  // erstattes med det her?
+
+
+            List<Udstyr> udstyr = db.Udstyr.ToList();
+
+            BlanketViewModel blanketViewModel = new BlanketViewModel(medarbejder, afdelinger, fiks, adgangsgrupper, udstyr);
+            return View("Blanket", blanketViewModel);
+
+        }
+
+
+        public JsonResult TjekInitialer(string initialer)
+        {
+
+            ADPerson ad = new ADPerson();
+            bool adResult = ad.TjekInitialerAD(initialer);
+            T_initialer initiale = brugdataDB.T_initialer.Find(initialer);
+
+            if (initiale == null && adResult == true)
+            {
+
+                return Json(true, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+
+            }
+
+        }
+
 
 
     }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Projekt.Models
+namespace FoaBrugerOprettelse.Models
 {
     using System;
     using System.Collections.Generic;
@@ -20,11 +20,9 @@ namespace Projekt.Models
         }
     
         public int id { get; set; }
-        public Nullable<int> leder_id { get; set; }
         public int medarbejder_id { get; set; }
         public string type { get; set; }
     
-        public virtual Leder Leder { get; set; }
         public virtual Medarbejder Medarbejder { get; set; }
         public virtual ICollection<Log> Log { get; set; }
     }

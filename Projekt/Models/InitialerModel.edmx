@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BrugdataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="T_initialer">
+          <Key>
+            <PropertyRef Name="PCinitialer" />
+          </Key>
+          <Property Name="PCinitialer" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Direktorat" Type="nvarchar" MaxLength="50" />
+          <Property Name="KDInitialer" Type="nvarchar" MaxLength="16" />
+          <Property Name="KDRettighed" Type="nvarchar" MaxLength="10" />
+          <Property Name="PensamAkasse" Type="nvarchar" MaxLength="16" />
+          <Property Name="AkasseRettighed" Type="nvarchar" MaxLength="2" />
+          <Property Name="PensamForb" Type="nvarchar" MaxLength="3" />
+          <Property Name="ForbRettighed" Type="nvarchar" MaxLength="10" />
+          <Property Name="Fiks" Type="bit" Nullable="false" />
+          <Property Name="FiksRettighed" Type="nvarchar" MaxLength="2" />
+          <Property Name="Dialog" Type="nvarchar" MaxLength="12" />
+          <Property Name="Ny_loen" Type="nvarchar" MaxLength="10" />
+          <Property Name="Cubus" Type="bit" Nullable="false" />
+          <Property Name="Specielt" Type="varchar" MaxLength="4000" />
+          <Property Name="Vikar" Type="bit" Nullable="false" />
+          <Property Name="ForventetFratrædelse" Type="smalldatetime" />
+          <Property Name="PcOpretAf" Type="nvarchar" MaxLength="10" />
+          <Property Name="AendretOpdat" Type="smalldatetime" />
+          <Property Name="AendretAf" Type="nvarchar" MaxLength="10" />
+          <Property Name="Fiu" Type="bit" Nullable="false" />
+          <Property Name="MR_Loen" Type="bit" Nullable="false" />
+          <Property Name="MR_Pas" Type="bit" Nullable="false" />
+          <Property Name="Concorde" Type="bit" Nullable="false" />
+          <Property Name="FiksListe" Type="bit" Nullable="false" />
+          <Property Name="SecureID_Kort" Type="bit" Nullable="false" />
+          <Property Name="KortNr" Type="nvarchar" MaxLength="10" />
+          <Property Name="PersonaleInit" Type="nvarchar" MaxLength="6" />
+          <Property Name="BestillingsNr" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TelefonLokal" Type="char" MaxLength="10" />
+          <Property Name="Stillingsbetegnelse" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalSlettet" Type="bit" Nullable="false" />
+          <Property Name="Acadre" Type="bit" Nullable="false" />
+          <Property Name="DigitalSign" Type="bit" Nullable="false" />
+          <Property Name="UIDNr" Type="int" />
+          <Property Name="MedlemsID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_360Groups">
+          <Key>
+            <PropertyRef Name="Taeller" />
+          </Key>
+          <Property Name="Groups360" Type="nvarchar(max)" />
+          <Property Name="Department" Type="nvarchar(max)" />
+          <Property Name="Taeller" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Manager">
+          <Key>
+            <PropertyRef Name="Taeller" />
+          </Key>
+          <Property Name="Manager" Type="nvarchar(max)" />
+          <Property Name="E_Mail" Type="nvarchar(max)" />
+          <Property Name="Department" Type="nvarchar(max)" />
+          <Property Name="Company" Type="nvarchar(max)" />
+          <Property Name="Taeller" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonaleAnsvarlig" Type="nvarchar(max)" />
+          <Property Name="PersAnsvarligMail" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="BrugdataModelStoreContainer">
+          <EntitySet Name="T_initialer" EntityType="Self.T_initialer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_360Groups" EntityType="Self.tbl_360Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Manager" EntityType="Self.tbl_Manager" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BrugdataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="T_initialer">
+          <Key>
+            <PropertyRef Name="PCinitialer" />
+          </Key>
+          <Property Name="PCinitialer" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Direktorat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KDInitialer" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="KDRettighed" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PensamAkasse" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="AkasseRettighed" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="PensamForb" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="ForbRettighed" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Fiks" Type="Boolean" Nullable="false" />
+          <Property Name="FiksRettighed" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Dialog" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Ny_loen" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Cubus" Type="Boolean" Nullable="false" />
+          <Property Name="Specielt" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="Vikar" Type="Boolean" Nullable="false" />
+          <Property Name="ForventetFratrædelse" Type="DateTime" Precision="0" />
+          <Property Name="PcOpretAf" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="AendretOpdat" Type="DateTime" Precision="0" />
+          <Property Name="AendretAf" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Fiu" Type="Boolean" Nullable="false" />
+          <Property Name="MR_Loen" Type="Boolean" Nullable="false" />
+          <Property Name="MR_Pas" Type="Boolean" Nullable="false" />
+          <Property Name="Concorde" Type="Boolean" Nullable="false" />
+          <Property Name="FiksListe" Type="Boolean" Nullable="false" />
+          <Property Name="SecureID_Kort" Type="Boolean" Nullable="false" />
+          <Property Name="KortNr" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PersonaleInit" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="BestillingsNr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TelefonLokal" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Stillingsbetegnelse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalSlettet" Type="Boolean" Nullable="false" />
+          <Property Name="Acadre" Type="Boolean" Nullable="false" />
+          <Property Name="DigitalSign" Type="Boolean" Nullable="false" />
+          <Property Name="UIDNr" Type="Int32" />
+          <Property Name="MedlemsID" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="BrugdataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_initialer" EntityType="Self.T_initialer" />
+          <EntitySet Name="tbl_Manager" EntityType="BrugdataModel.tbl_Manager" />
+          <EntitySet Name="tbl_360Groups" EntityType="BrugdataModel.tbl_360Groups" />
+        </EntityContainer>
+        <EntityType Name="tbl_Manager">
+          <Key>
+            <PropertyRef Name="Taeller" />
+          </Key>
+          <Property Name="Manager" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="E_Mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Taeller" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaleAnsvarlig" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PersAnsvarligMail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_360Groups">
+          <Key>
+            <PropertyRef Name="Taeller" />
+          </Key>
+          <Property Name="Groups360" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Taeller" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BrugdataModelStoreContainer" CdmEntityContainer="BrugdataEntities">
+          <EntitySetMapping Name="T_initialer">
+            <EntityTypeMapping TypeName="BrugdataModel.T_initialer">
+              <MappingFragment StoreEntitySet="T_initialer">
+                <ScalarProperty Name="PCinitialer" ColumnName="PCinitialer" />
+                <ScalarProperty Name="Direktorat" ColumnName="Direktorat" />
+                <ScalarProperty Name="KDInitialer" ColumnName="KDInitialer" />
+                <ScalarProperty Name="KDRettighed" ColumnName="KDRettighed" />
+                <ScalarProperty Name="PensamAkasse" ColumnName="PensamAkasse" />
+                <ScalarProperty Name="AkasseRettighed" ColumnName="AkasseRettighed" />
+                <ScalarProperty Name="PensamForb" ColumnName="PensamForb" />
+                <ScalarProperty Name="ForbRettighed" ColumnName="ForbRettighed" />
+                <ScalarProperty Name="Fiks" ColumnName="Fiks" />
+                <ScalarProperty Name="FiksRettighed" ColumnName="FiksRettighed" />
+                <ScalarProperty Name="Dialog" ColumnName="Dialog" />
+                <ScalarProperty Name="Ny_loen" ColumnName="Ny_loen" />
+                <ScalarProperty Name="Cubus" ColumnName="Cubus" />
+                <ScalarProperty Name="Specielt" ColumnName="Specielt" />
+                <ScalarProperty Name="Vikar" ColumnName="Vikar" />
+                <ScalarProperty Name="ForventetFratrædelse" ColumnName="ForventetFratrædelse" />
+                <ScalarProperty Name="PcOpretAf" ColumnName="PcOpretAf" />
+                <ScalarProperty Name="AendretOpdat" ColumnName="AendretOpdat" />
+                <ScalarProperty Name="AendretAf" ColumnName="AendretAf" />
+                <ScalarProperty Name="Fiu" ColumnName="Fiu" />
+                <ScalarProperty Name="MR_Loen" ColumnName="MR_Loen" />
+                <ScalarProperty Name="MR_Pas" ColumnName="MR_Pas" />
+                <ScalarProperty Name="Concorde" ColumnName="Concorde" />
+                <ScalarProperty Name="FiksListe" ColumnName="FiksListe" />
+                <ScalarProperty Name="SecureID_Kort" ColumnName="SecureID_Kort" />
+                <ScalarProperty Name="KortNr" ColumnName="KortNr" />
+                <ScalarProperty Name="PersonaleInit" ColumnName="PersonaleInit" />
+                <ScalarProperty Name="BestillingsNr" ColumnName="BestillingsNr" />
+                <ScalarProperty Name="TelefonLokal" ColumnName="TelefonLokal" />
+                <ScalarProperty Name="Stillingsbetegnelse" ColumnName="Stillingsbetegnelse" />
+                <ScalarProperty Name="TotalSlettet" ColumnName="TotalSlettet" />
+                <ScalarProperty Name="Acadre" ColumnName="Acadre" />
+                <ScalarProperty Name="DigitalSign" ColumnName="DigitalSign" />
+                <ScalarProperty Name="UIDNr" ColumnName="UIDNr" />
+                <ScalarProperty Name="MedlemsID" ColumnName="MedlemsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Manager">
+            <EntityTypeMapping TypeName="BrugdataModel.tbl_Manager">
+              <MappingFragment StoreEntitySet="tbl_Manager">
+                <ScalarProperty Name="PersAnsvarligMail" ColumnName="PersAnsvarligMail" />
+                <ScalarProperty Name="PersonaleAnsvarlig" ColumnName="PersonaleAnsvarlig" />
+                <ScalarProperty Name="Taeller" ColumnName="Taeller" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="E_Mail" ColumnName="E_Mail" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_360Groups">
+            <EntityTypeMapping TypeName="BrugdataModel.tbl_360Groups">
+              <MappingFragment StoreEntitySet="tbl_360Groups">
+                <ScalarProperty Name="Taeller" ColumnName="Taeller" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Groups360" ColumnName="Groups360" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

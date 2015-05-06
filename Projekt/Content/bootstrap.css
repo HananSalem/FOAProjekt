@@ -2,13 +2,22 @@ body {
 background-image:url('/Content/Images/background-pattern.png');
 margin:0px;
 width:100%;
+font-family: sans-serif;
 }
 
 .main {
-    margin-left:10%;
-    width:80%;
+    margin-left:auto;
+    margin-right:auto;
+    width:55em;
     background-color:white;
     padding:3em;
     height:91vh;
 
 }
+
+#bruger {
+    float:right;
+}
+
+
+

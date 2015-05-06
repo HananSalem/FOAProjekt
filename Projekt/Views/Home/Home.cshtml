@@ -1,0 +1,61 @@
+﻿@model bool
+
+@section Style {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+    <link href="@Url.Content("~/Content/home.css")" rel="stylesheet" type="text/css" />
+}
+
+<div id="banner">
+
+    <img src="/Content/Images/hiring.png">
+
+</div>
+
+<div id="maindiv">
+ 
+
+
+    @if (Model == true)
+    {
+
+        <div id="left">
+            @Html.ActionLink("Faglig: Opret medarbejder ", "VisOprettelsesBlanket", "Oprettelse", new { område = "2" }, null)
+            <p>Her har du mulighed for, at oprette en ny medarbejder med de relevante person & IT data. </p>
+
+
+        </div>
+        <div id="right">
+            <a href="/Log/VisLog">Vis status</a>
+            <p>Her har du mulighed for, at få vist status på nyoprettede medarbejdere, se hvem der har opdateret dem samt dato for opdateringen.</p>
+
+        </div>
+
+    }
+    else
+    {
+
+         <div id="left">
+            @Html.ActionLink("A-kasse:Opret medarbejder ", "VisOprettelsesBlanketPersonale", "Oprettelse", new { område = "1" }, null)<br />
+            <p>Her har du mulighed for, at oprette en ny medarbejder med de relevante person & IT data i A-kasse. </p>
+
+
+        </div>
+        <div id="right">
+            @Html.ActionLink("Stauning:Opret medarbejder ", "VisOprettelsesBlanketPersonale", "Oprettelse", new { område = "3" }, null)<br />
+            <p>Her har du mulighed for, at oprette en ny medarbejder med de relevante person & IT data i Staunings Plads.</p>
+
+        </div>
+
+        
+        
+       
+
+    }
+    </div>
+
+
+
+
+
+
+

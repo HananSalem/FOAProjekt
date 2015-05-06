@@ -1,40 +1,66 @@
-﻿using System;
+﻿using FoaBrugerOprettelse.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Projekt.DomainModels
+namespace FoaBrugerOprettelse.DomainModels
 {
     public class Mail
     {
 
-     
-
-        public string SendMail(int id)
-        {
-
-            MailMessage mail = new MailMessage();
-            mail.To.Add("irar@foa.dk");
-            mail.From = new MailAddress("hsal@foa.dk");
-            mail.Subject = "Godkend ny medarbejder";
-            string Body = "Tryk venligst på nedenstående link, for at godkende den nye medarbejder\n" + "http://localhost:59312/Godkendelse/FindMedarbejder?medarbejderId=" + id + "&ok=OK";
-            mail.Body = Body;
-            mail.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "foamail";
-            smtp.Port = 25;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential
-            ("hsal@foa.dk", "henuhenu");
-
-            smtp.Send(mail);
+       public string body{get; set;}
+       public string modtager { get; set; }
+       public string emne { get; set; }
 
 
-            return "En mail er blivet sent til lederen";
-        }
+       public Mail()
+       {
+        
+       }
 
+
+
+       public string SendMail()
+       {
+
+           MailMessage mail = new MailMessage();
+           mail.To.Add(modtager);
+           mail.From = new MailAddress(Environment.UserName + "@foa.dk");
+           mail.Subject = emne;
+           mail.Body = body;
+           mail.IsBodyHtml = true;
+           SmtpClient smtp = new SmtpClient();
+           smtp.Host = "foamail";
+           smtp.Port = 25;
+           smtp.UseDefaultCredentials = false;
+ 
+           smtp.Send(mail);
+
+           return "En mail er blivet sendt";
+       }
+
+       public string FindAkasseLederEmail(string afdeling)
+       {
+           BrugdataEntities brugdataDB = new BrugdataEntities();
+          string email = brugdataDB.tbl_Manager.Where(t => t.Company == afdeling && t.Department.StartsWith("A-kasse")).Select(t => t.E_Mail).ToList()[0];
+          return email;
+       }
+
+       public string FindLederEmail(string afdeling) {
+           BrugdataEntities brugdataDB = new BrugdataEntities();
+           // Først prøver vi at finde personale-ansvarligs mail
+           List<string> email = brugdataDB.tbl_Manager.Where(t => t.Company == afdeling && !(t.Department.StartsWith("A-kasse"))).Select(t => t.PersAnsvarligMail).ToList();
+           // Hvis der ikke findes en personale-ansvarlig tager vi bare lederens mail
+           if (email[0] == null)
+           {
+               email = brugdataDB.tbl_Manager.Where(t => t.Company == afdeling && !(t.Department.StartsWith("A-kasse"))).Select(t => t.E_Mail).ToList();
+           }
+               return email[0];
+       
+       }
 
     }
 }

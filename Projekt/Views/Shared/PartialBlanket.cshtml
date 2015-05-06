@@ -1,0 +1,25 @@
+﻿@model FoaBrugerOprettelse.Models.BlanketViewModel
+
+
+<tr><td>Område: </td><td>@Html.TextBox("områdeNavn", Model.område, new { disabled = "disabled"})</td></tr>
+<tr><td>Start dato: </td><td><input type="text" id="datepicker" name="datepicker" title="Dato for medarbejderens opstart" value=@Model.start_dato /></td></tr>
+<tr>
+    <td>Afdelings navn:</td>
+    <td>
+
+        <select name="afdelinger" id="afdelinger">
+            <option value=""> -- vælg afdeling -- </option>
+            @foreach (var item in Model.afdelinger)
+{
+    <option>@item</option>
+}
+
+
+        </select>
+    </td>
+</tr>
+
+<tr><td>Leder:</td><td><input type="text" name="leder" id="leder"></td></tr>
+<tr><td>Medarbejderens navn: </td><td>@Html.TextBox("medarbejderNavn", Model.navn, new { id = "medarbejderNavn" })</td></tr>
+<tr><td>Initialer: </td><td><input type="text" name="initialer" id="initialer" value=@Model.initialer /></td></tr>
+<tr><td>Stillingsbetegnelse: </td><td>@Html.TextBox("stillingsbetegnelse", Model.stillingsbetegnelse)</td></tr>

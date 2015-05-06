@@ -7,23 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Projekt.Models
+namespace FoaBrugerOprettelse.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Grupper
     {
-        public Grupper()
-        {
-            this.Medarbejder = new HashSet<Medarbejder>();
-        }
+        public int Medarbejder_id { get; set; }
+        public string Gruppe { get; set; }
     
-        public int id { get; set; }
-        public string navn { get; set; }
-        public Nullable<int> område_id { get; set; }
-    
-        public virtual Område Område { get; set; }
-        public virtual ICollection<Medarbejder> Medarbejder { get; set; }
+        public virtual Medarbejder Medarbejder { get; set; }
     }
 }

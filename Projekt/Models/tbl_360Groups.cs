@@ -7,21 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Projekt.Models
+namespace FoaBrugerOprettelse.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Afdeling
+    public partial class tbl_360Groups
     {
-        public Afdeling()
-        {
-            this.Medarbejder = new HashSet<Medarbejder>();
-        }
-    
-        public string navn { get; set; }
-        public int nummer { get; set; }
-    
-        public virtual ICollection<Medarbejder> Medarbejder { get; set; }
+        public string Groups360 { get; set; }
+        public string Department { get; set; }
+        public int Taeller { get; set; }
     }
 }

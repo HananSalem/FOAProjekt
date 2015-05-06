@@ -1,32 +1,32 @@
-﻿using Projekt.Models;
+﻿using FoaBrugerOprettelse.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Projekt.DomainModels
+namespace FoaBrugerOprettelse.DomainModels
 {
     public class Godkendelse
     {
         private OprettelseDBEntities2 db = new OprettelseDBEntities2();
 
-        public void GodkendMedarbejder(FormCollection collection)
+        public void GodkendMedarbejder(int medarbejderId)
         {
-            int id = Convert.ToInt32(collection.Get("medarbejderId"));
             Log log = new Log();
 
-            Blanket blanket = db.Blanket.Where(b => b.medarbejder_id == id).ToArray()[0];
+            Blanket blanket = db.Blanket.Where(b => b.medarbejder_id == medarbejderId).ToArray()[0];
             log.status = "Godkendt af leder";
             log.dato = DateTime.Today;
             log.Blanket = blanket;
-            log.initialer = "cln01";
+            log.initialer = Environment.UserName;
             db.Log.Add(log);
 
             db.SaveChanges();
            
-        
         }
+
+
 
 
 

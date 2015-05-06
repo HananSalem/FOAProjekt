@@ -1,0 +1,111 @@
+﻿img {
+    margin-top:30px;
+   
+}
+
+#banner {
+    margin-top:1em;
+    margin-left:15em;
+    margin-right:auto;
+}
+
+#header {
+background: #848484;
+
+}
+
+
+#header ul {
+  list-style: none;
+  background-color: #848484;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  overflow:hidden;
+}
+#header li {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2em;
+  line-height: 40px;
+  height: 40px;
+  border-bottom: 1px solid #888;
+  float:left;
+  
+}
+ 
+#header a {
+  text-decoration: none;
+  color: black;
+  display: block;
+  transition: .3s background-color;
+  padding-left:9.65em;
+  padding-right:9.6em;
+}
+ 
+#header a:hover, #header a:active {
+  background-color: #4f4f4f;
+}
+
+#maindiv {
+  
+    margin-top:2em;
+    background-image:url('/Content/Images/bg-deck.png');
+    height:15em;
+}
+
+#left{
+    margin-top:3em;
+    float:left;
+    margin-left:4em;
+   
+    
+}
+
+#left p, #right p {
+   margin-left:4em;
+    width:17em;
+}
+
+#right {
+    margin-top:3em;
+    float:right;
+    margin-right:6em;
+}
+
+#left a, #right a{
+    margin-top:2em;
+    padding:3em;
+    color: #A00000;
+  font-size:18px;
+     text-decoration: none;
+}
+
+#left a:hover, #right a:hover {
+  text-decoration:underline;
+}
+
+
+#footer {
+    color:black;
+}
+
+
+h2 {
+    font-family: DINNextRoundedLTW01-Med,Calibri,Verdana,Arial,Helvetica,sans-serif;
+  font-weight: normal;
+  font-size:1.7em;
+
+}
+
+body {
+font-family: DINNextRoundedLTW01-Med,Calibri,Verdana,Arial,Helvetica,sans-serif;
+
+}
+
+
+
+#hent360grupper {
+    position:absolute;
+    left:52%;
+    top:44em;
+}

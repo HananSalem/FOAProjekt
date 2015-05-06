@@ -10,6 +10,7 @@
     <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
     <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
     <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+    <link href="@Url.Content("~/Content/home.css")" rel="stylesheet" type="text/css" />
     @RenderSection("JavaScript", required: false)
     @RenderSection("Style", false)
     @Styles.Render("~/Content/css")
@@ -20,23 +21,41 @@
 </head>
 <body>
     <div class="main">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-              
-                <img src="/Content/Images/logo.png"/ width="150px"></div>
-            
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div id="bruger">Logget på som: @Environment.UserName</div>
+                <div class="navbar-header">
+
+                    <a href="/Home/Home"><img src="/Content/Images/logo.png" width="150px" /></a>
+                </div>
+                <br />
+
+            </div>
 
         </div>
+        <div class="container body-content">
+            <div id="header">
+                <ul>
+                    <li><a href="/Home/Home">HOME</a></li>
+
+                    <li><a href="https://foanet3.foa.dk/Sider/default.aspx">FOA NET</a></li>
+                </ul>
+            </div>
+
+
+
+           
+                @RenderBody()
+         
+                <br/>
+                <hr />
+                <footer>
+                    <p>FOA | Staunings Plads 1-3 | 1790 København V | Telefon 46 97 26 26 | E-mail <a href="mailto:foa@foa.dk" title="foa@foa.dk" id="footer">foa@foa.dk</a></p>
+                </footer>
+            
+
+        </div>
+    </div>
 
    
 </body>

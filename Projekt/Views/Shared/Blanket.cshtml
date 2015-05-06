@@ -1,0 +1,144 @@
+﻿@model FoaBrugerOprettelse.Models.BlanketViewModel
+
+@{
+    ViewBag.Title = "Blanket";
+}
+
+<script>
+
+    $(function () {
+        $(document).tooltip();
+    })
+
+</script>
+
+<script id="data" type="text/data-template">
+    @Html.Raw(Json.Encode(Model.medarbGrupper))
+</script>
+
+<script id="data2" type="text/data-template">
+    @Html.Raw(Json.Encode(Model.udstyrId))
+</script>
+<script id="data3" type="text/data-template">
+    @Html.Raw(Json.Encode(Model.medarbejder_funktionspostkasser))
+</script>
+
+
+
+
+@section Style {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+    <link href="@Url.Content("~/Content/myStyleSheet.css")" rel="stylesheet" type="text/css" />
+}
+<script src="~/scripts/afdelingscript.js"></script>
+<script type="text/javascript" src="@Url.Content("/Scripts/oprettelsesScript.js")"></script>
+<script src="~/scripts/personoprettelsessript.js"></script>
+
+<h2>Opret medarbejder</h2>
+
+@using (Html.BeginForm("Action", "Home", FormMethod.Post, new { id = "oprettelsesform" }))
+{
+
+    <div>
+        <input type="hidden" value=@Model.områdeId name="område" id="område">
+        <input type="hidden" value=@Model.afdelingsnavn name="afdelingsnavn" id="afdelingsnavn">
+        <input type="hidden" value=@Model.fiks_id name="fiksId" id="fiksId">
+        <input type="hidden" value=@Model.id name="medarbejderId" id="medarbejderId">
+
+        <table>
+
+            @Html.Partial("PartialBlanket")
+            <tr><td>Telefon - lokal nr.: </td><td><input type="text" id="telefon" name="telefon" value=@Model.telefon></td></tr>
+            <tr><td>CPR nr. (Hvis medlem af FOA): </td><td><input type="text" name="cpr" value=@Model.cpr></td></tr>
+            <tr><td>Adgang til FIKS</td></tr>
+            <tr>
+                <td></td>
+                <td>
+                    @foreach (var item in Model.fiks)
+                    {
+                        @Html.RadioButton("fiks", @item.id, new { @class = "fiks", title = @item.beskrivelse }) @item.kode<br />
+                    }
+                </td>
+            </tr>
+            <tr><td> Adgang til 360 </td></tr>
+            <tr>
+                <td>Samme rettigheder som: </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>Init.: </td>
+                            <td><input type="text" id="initialer360" /></td>
+                            <td> </td>
+                        </tr>
+                    </table>
+                </td>
+            <tr>
+                <td>Adgangsgrupper</td>
+                <td>
+
+                    <select name="a360" class="a360" id="grupper" multiple size="6" style="width:300px">
+
+                        @if (Model.action == "Godkend")
+                        {
+                            foreach (var item in Model.adgangsgrupper)
+                            {
+                                <option>@item</option>
+                            }
+                        }
+
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Funktionspostkasse: </td>
+                <td id="tdPostKasse">
+                    <select name="postkasse" id="postkasser" multiple size="6" style="width:300px" class="fpostkasser">
+
+
+                        @if (Model.action == "Godkend")
+                        {
+                            foreach (var item in Model.funktionspostkasser)
+                            {
+                                <option>@item</option>
+                            }
+                        }
+
+                    </select>
+
+
+
+            <tr><td>Speciale adgange: </td> <td id="tdSpecialAdgang"><input type="text" name="specialeprogrammer" title="f.eks. adgang til Citrix" /> </td><td><input type="button" id="tilføjSpecialAdgang" name="tilføj" value="Tilføj flere" /></td></tr>
+            <tr><td>Udstyr: </td> <td> Der kan ikke vælges både bærbar og stationær </td></tr>
+            <tr>
+                <td></td>
+                <td>
+                    @foreach (var item in Model.udstyr)
+                    {
+                        <input type="checkbox" value=@item.id name="udstyr" class="udstyr">@item.navn<br />
+                    }
+                </td>
+            </tr>
+
+
+        </table>
+
+        <p id="besked"></p> <br />
+        @Html.TextBox("send", Model.knapTekst)
+
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+
+
+
+    </div>
+
+
+
+}
+
+<input type="submit" id="hent360grupper" value="Hent 360 grupper">
+
+
+
+

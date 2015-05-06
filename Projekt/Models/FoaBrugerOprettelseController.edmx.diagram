@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c2828f8ea4cb4a2ab87bba65b1752ae9" Name="Diagram1">
+        <EntityTypeShape EntityType="OprettelseDBModel.Fiks" Width="1.5" PointX="2.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OprettelseDBModel.Medarbejder" Width="1.5" PointX="4.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OprettelseDBModel.Specialprogrammer" Width="1.5" PointX="4.625" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OprettelseDBModel.Udstyr" Width="1.5" PointX="6.375" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="OprettelseDBModel.Medarbejder_udstyr" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OprettelseDBModel.Område" Width="1.5" PointX="2.375" PointY="3.125" />
+        <AssociationConnector Association="OprettelseDBModel.FK_Fiks_Område" />
+        <EntityTypeShape EntityType="OprettelseDBModel.Blanket" Width="1.5" PointX="6.375" PointY="0.5" />
+        <AssociationConnector Association="OprettelseDBModel.FK_Blanket_Medarbejder" />
+        <AssociationConnector Association="OprettelseDBModel.Medarbejder_specialprogrammer" />
+        <EntityTypeShape EntityType="OprettelseDBModel.Medarbejder_funktionspostkasse" Width="1.875" PointX="2.125" PointY="5.375" />
+        <AssociationConnector Association="OprettelseDBModel.FK_Medarbejder_funktionspostkasse_Medarbejder" ManuallyRouted="false" >
+        </AssociationConnector>
+        <EntityTypeShape EntityType="OprettelseDBModel.Log" Width="1.5" PointX="8.25" PointY="0.75" />
+        <AssociationConnector Association="OprettelseDBModel.FK_Log_Blanket" />
+        <AssociationConnector Association="OprettelseDBModel.FK_Medarbejder_Fiks" />
+        <AssociationConnector Association="OprettelseDBModel.FK_Medarbejder_Område" />
+        <EntityTypeShape EntityType="OprettelseDBModel.Grupper" Width="1.5" PointX="6.5" PointY="5" />
+        <AssociationConnector Association="OprettelseDBModel.FK_Grupper_Medarbejder" ManuallyRouted="true" >
+          <ConnectorPoint PointX="5.78155434926411" PointY="4.980205078125" />
+          <ConnectorPoint PointX="5.78155434926411" PointY="5.453455078125" />
+          <ConnectorPoint PointX="6.308" PointY="5.453455078125" />
+          <ConnectorPoint PointX="6.308" PointY="5.4619136718749992" />
+          <ConnectorPoint PointX="6.5" PointY="5.4619136718749992" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

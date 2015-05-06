@@ -1,0 +1,15 @@
+﻿@model IEnumerable<string>
+
+
+
+@{
+    ViewBag.Title = "VisPostkasser";
+}
+
+<h2>VisPostkasser</h2>
+
+@foreach(string postkasse in Model){
+
+    <p>@postkasse</p>
+
+}

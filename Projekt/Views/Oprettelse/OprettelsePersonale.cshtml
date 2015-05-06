@@ -1,0 +1,42 @@
+﻿@model FoaBrugerOprettelse.Models.BlanketViewModel
+
+@{
+   
+    ViewBag.Title = "OprettelseBla";
+}
+
+
+@section Style {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+    <link href="@Url.Content("~/Content/myStyleSheet.css")" rel="stylesheet" type="text/css" />
+}
+
+
+
+@*<script type="text/javascript" src="@Url.Content("/Scripts/oprettelsesScript.js")"></script>*@
+
+<script src="~/scripts/personoprettelsessript.js"></script>
+
+<h2>Opret medarbejderoplysninger</h2>
+
+@using (Html.BeginForm("OpretPersonoplysninger", "Oprettelse", FormMethod.Post, new { id = "oprettelsesform" }))
+{
+
+    <span>
+
+        <input type="hidden" value=@Model.områdeId name="områdeId">
+
+        <table>
+          @Html.Partial("PartialBlanket")
+
+          
+
+</table>
+        <input type="submit" id="submit" value="Send til godkendelse" name="send">
+       
+       
+
+
+
+    </span>
+}

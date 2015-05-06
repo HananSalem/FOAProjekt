@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Projekt
+namespace FoaBrugerOprettelse
 {
     public class BundleConfig
     {

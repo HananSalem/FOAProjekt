@@ -1,16 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "GodkendMedarbejder";
+    ViewBag.Title = "Godkendt";
 }
 
-<h2>GodkendMedarbejder</h2>
+<h2>Medarbejderen er godkendt</h2>
 
-@using (Html.BeginForm("FindMedarbejder", "Godkendelse", FormMethod.Get))
+@Html.ActionLink("Vis status på blanketter", "VisLog", "Log")
 
-{
-    <fieldset>
-        <input type="text" name="medarbejderId" />
-        <input type="submit" value="OK" name="ok">
-
-    </fieldset>
-}

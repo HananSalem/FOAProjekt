@@ -1,1 +1,19 @@
-﻿
+﻿.error {
+    color:red;
+}
+
+#submit {
+    margin-top:5px;
+    margin-left:23%;
+
+}
+
+td {
+    padding-bottom:2px;
+
+}
+
+.space {
+
+margin-top:3px;
+}

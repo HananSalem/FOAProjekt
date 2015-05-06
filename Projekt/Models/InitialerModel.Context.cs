@@ -13,10 +13,10 @@ namespace FoaBrugerOprettelse.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OprettelseDBEntities2 : DbContext
+    public partial class BrugdataEntities : DbContext
     {
-        public OprettelseDBEntities2()
-            : base("name=OprettelseDBEntities2")
+        public BrugdataEntities()
+            : base("name=BrugdataEntities")
         {
         }
     
@@ -25,14 +25,8 @@ namespace FoaBrugerOprettelse.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Fiks> Fiks { get; set; }
-        public DbSet<Medarbejder> Medarbejder { get; set; }
-        public DbSet<Specialprogrammer> Specialprogrammer { get; set; }
-        public DbSet<Udstyr> Udstyr { get; set; }
-        public DbSet<Område> Område { get; set; }
-        public DbSet<Blanket> Blanket { get; set; }
-        public DbSet<Medarbejder_funktionspostkasse> Medarbejder_funktionspostkasse { get; set; }
-        public DbSet<Log> Log { get; set; }
-        public DbSet<Grupper> Grupper { get; set; }
+        public DbSet<T_initialer> T_initialer { get; set; }
+        public DbSet<tbl_Manager> tbl_Manager { get; set; }
+        public DbSet<tbl_360Groups> tbl_360Groups { get; set; }
     }
 }

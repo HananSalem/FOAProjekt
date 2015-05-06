@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Projekt.Models
+namespace FoaBrugerOprettelse.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,30 +18,29 @@ namespace Projekt.Models
         {
             this.Udstyr = new HashSet<Udstyr>();
             this.Blanket = new HashSet<Blanket>();
-            this.Grupper = new HashSet<Grupper>();
             this.Specialprogrammer = new HashSet<Specialprogrammer>();
             this.Medarbejder_funktionspostkasse = new HashSet<Medarbejder_funktionspostkasse>();
+            this.Grupper = new HashSet<Grupper>();
         }
     
         public int id { get; set; }
         public string navn { get; set; }
         public string initialer { get; set; }
         public string stillingsbetegnelse { get; set; }
-        public int telefon { get; set; }
+        public Nullable<int> telefon { get; set; }
         public string afdelingsnavn { get; set; }
-        public int område_id { get; set; }
+        public Nullable<int> område_id { get; set; }
         public string cpr { get; set; }
-        public int fiks_id { get; set; }
+        public Nullable<int> fiks_id { get; set; }
         public Nullable<System.DateTime> start_dato { get; set; }
         public Nullable<System.DateTime> slut_dato { get; set; }
     
-        public virtual Afdeling Afdeling { get; set; }
         public virtual ICollection<Udstyr> Udstyr { get; set; }
-        public virtual Område Område { get; set; }
-        public virtual Fiks Fiks { get; set; }
         public virtual ICollection<Blanket> Blanket { get; set; }
-        public virtual ICollection<Grupper> Grupper { get; set; }
         public virtual ICollection<Specialprogrammer> Specialprogrammer { get; set; }
         public virtual ICollection<Medarbejder_funktionspostkasse> Medarbejder_funktionspostkasse { get; set; }
+        public virtual Fiks Fiks { get; set; }
+        public virtual Område Område { get; set; }
+        public virtual ICollection<Grupper> Grupper { get; set; }
     }
 }

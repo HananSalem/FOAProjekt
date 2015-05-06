@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Projekt.Models
+namespace FoaBrugerOprettelse.Models
 {
     using System;
     using System.Collections.Generic;
@@ -16,16 +16,14 @@ namespace Projekt.Models
     {
         public Område()
         {
-            this.Medarbejder = new HashSet<Medarbejder>();
             this.Fiks = new HashSet<Fiks>();
-            this.Grupper = new HashSet<Grupper>();
+            this.Medarbejder = new HashSet<Medarbejder>();
         }
     
         public int id { get; set; }
         public string navn { get; set; }
     
-        public virtual ICollection<Medarbejder> Medarbejder { get; set; }
         public virtual ICollection<Fiks> Fiks { get; set; }
-        public virtual ICollection<Grupper> Grupper { get; set; }
+        public virtual ICollection<Medarbejder> Medarbejder { get; set; }
     }
 }
